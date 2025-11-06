@@ -2,6 +2,14 @@ import { motion } from 'framer-motion';
 import { Mail, Send } from 'lucide-react';
 
 export default function Contact() {
+  function onSubmit(e) {
+    e.preventDefault();
+    const form = e.currentTarget;
+    const data = Object.fromEntries(new FormData(form));
+    console.log('Contact form submitted:', data);
+    form.reset();
+  }
+
   return (
     <section id="contact" className="py-24">
       <div className="mx-auto max-w-2xl px-4 sm:px-6 lg:px-8">
@@ -24,10 +32,10 @@ export default function Contact() {
             </div>
           </div>
 
-          <form className="mt-6 grid grid-cols-1 gap-4">
-            <input className="w-full rounded-xl border border-black/10 dark:border-white/10 bg-transparent px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-indigo-500" placeholder="Your name" />
-            <input type="email" className="w-full rounded-xl border border-black/10 dark:border-white/10 bg-transparent px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-indigo-500" placeholder="Email address" />
-            <textarea rows="4" className="w-full rounded-xl border border-black/10 dark:border-white/10 bg-transparent px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-indigo-500" placeholder="How can I help?" />
+          <form onSubmit={onSubmit} className="mt-6 grid grid-cols-1 gap-4">
+            <input name="name" className="w-full rounded-xl border border-black/10 dark:border-white/10 bg-transparent px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-indigo-500" placeholder="Your name" required />
+            <input name="email" type="email" className="w-full rounded-xl border border-black/10 dark:border-white/10 bg-transparent px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-indigo-500" placeholder="Email address" required />
+            <textarea name="message" rows="4" className="w-full rounded-xl border border-black/10 dark:border-white/10 bg-transparent px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-indigo-500" placeholder="How can I help?" required />
             <button type="submit" className="inline-flex w-fit items-center gap-2 rounded-full bg-indigo-600 px-5 py-3 text-white text-sm font-semibold hover:bg-indigo-500 transition">
               <Send className="h-4 w-4" /> Send message
             </button>
